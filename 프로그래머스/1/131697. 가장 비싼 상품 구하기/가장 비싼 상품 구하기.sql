@@ -1,5 +1,3 @@
 -- 코드를 입력하세요
-SELECT price MAX_PRICE
+select max(price) max_price
 from product
-order by price desc
-limit 1
