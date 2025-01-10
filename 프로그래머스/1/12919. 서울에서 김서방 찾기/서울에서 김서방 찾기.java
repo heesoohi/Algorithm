@@ -4,7 +4,6 @@ class Solution {
         while (!seoul[i].equals("Kim")){
             i++;
         }
-        String.valueOf(i);
         return ("김서방은 " + i + "에 있다");
     }
 }
