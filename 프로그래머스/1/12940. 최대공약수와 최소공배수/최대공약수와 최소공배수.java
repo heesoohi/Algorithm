@@ -4,11 +4,10 @@ class Solution {
         int max = 0;
         for (int i =1; i<=n && i<=m; i++){
             if (n%i == 0 && m%i ==0){
-                max = i;
+                ans[0] = i;
+                ans[1] = n*m/i;
             }
         }
-        ans[0] = max;
-        ans[1] = n*m/max;
         
         return ans;
     }
