@@ -1,28 +1,21 @@
-import java.util.*;
+import java.util.HashMap;
 
 class Solution {
     public String solution(String[] participant, String[] completion) {
-        Set<String> runners = new HashSet<>();
+        String answer = "";
+        HashMap<String, Integer> hm = new HashMap<>();
+        for (String player : participant) {
+            hm.put(player, hm.getOrDefault(player, 0) + 1);
+        }
+        for (String player : completion) {
+            hm.put(player, hm.get(player) - 1);
+        }
         
-        for (String runner: participant) {
-            if (!runners.contains(runner)) {
-                runners.add(runner);
-            } else {
-                runners.remove(runner);
+        for(String key : hm.keySet()) {
+            if(hm.get(key) != 0){
+                answer = key;
             }
         }
-        
-        for (String runner: completion) {
-            if (runners.contains(runner)) {
-                runners.remove(runner);
-            } else {
-                runners.add(runner);
-            }
-        }
-        
-        for (String ans: runners) {
-            return ans;
-        }
-        return null;
+        return answer;
     }
 }
