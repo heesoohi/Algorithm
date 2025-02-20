@@ -1,39 +1,25 @@
-import java.util.*;
-
 class Solution {
     public int solution(int n, int[] lost, int[] reserve) {
-        int len = lost.length;
-        int answer= n - len;
-        Set<Integer> clothes = new HashSet<Integer>();
-        boolean[] visited = new boolean[len];
+        int[] people = new int[n];
+        int answer = n;
         
-        for(int num : reserve) {
-            clothes.add(num);
-        }
+        for (int l : lost)
+            people[l-1]--;
+        for (int r : reserve)
+            people[r-1]++;
         
-        Arrays.sort(lost);
-        for(int i = 0; i < len; i++) {
-            if(clothes.contains(lost[i])) {
-                answer++;
-                visited[i] = true;
-                clothes.remove(lost[i]);
+        for (int i = 0; i < people.length; i++){
+            if (people[i] == -1) {
+                if (i-1 >= 0 && people[i-1] == 1) {
+                    people[i]++;
+                    people[i-1]--;
+                } else if (i+1 < people.length && people[i+1] == 1) {
+                    people[i]++;
+                    people[i+1]--;
+                } else
+                    answer--;
             }
         }
-
-
-        for(int i = len - 1; i >= 0; i--) {
-            if (visited[i]) continue;
-            
-            if(clothes.contains(lost[i] + 1)) {
-                clothes.remove(lost[i] + 1);
-                answer++;
-            } else if(clothes.contains(lost[i] - 1)) {
-                clothes.remove(lost[i] - 1);
-                answer++;
-            }
-        }
-
-
-        return answer;
+         return answer;  
     }
 }
