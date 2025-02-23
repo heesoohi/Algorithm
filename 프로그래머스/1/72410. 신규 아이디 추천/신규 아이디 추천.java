@@ -1,71 +1,70 @@
 class Solution {
     public String solution(String new_id) {
-
-        String s = new KAKAOID(new_id)
-                .replaceToLowerCase()
-                .filter()
-                .toSingleDot()
-                .noStartEndDot()
-                .noBlank()
-                .noGreaterThan16()
-                .noLessThan2()
-                .getResult();
-
-
-        return s;
+        
+        String recommendation = new KAKAOID(new_id)
+            .replaceToLowerCase()
+            .filter()
+            .toSingleDot()
+            .noStartEndDot()
+            .noBlank()
+            .noGreaterThan16()
+            .noLessThan2()
+            .getResult();
+        
+        return recommendation;
     }
-
+    
     private static class KAKAOID {
-        private String s;
-
-        KAKAOID(String s) {
-            this.s = s;
+        private String recommendation;
+        
+        KAKAOID(String recommendation) {
+            this.recommendation = recommendation;
         }
-
+        
         private KAKAOID replaceToLowerCase() {
-            s = s.toLowerCase();
+            recommendation = recommendation.toLowerCase();
             return this;
         }
-
+        
         private KAKAOID filter() {
-            s = s.replaceAll("[^a-z0-9._-]", "");
+            recommendation = recommendation.replaceAll("[^a-z0-9._-]", "");
             return this;
         }
-
+        
         private KAKAOID toSingleDot() {
-            s = s.replaceAll("[.]{2,}", ".");
+            recommendation = recommendation.replaceAll("[.]{2,}", ".");
             return this;
         }
-
+        
         private KAKAOID noStartEndDot() {
-            s = s.replaceAll("^[.]|[.]$", "");
+            recommendation = recommendation.replaceAll("^[.]|[.]$", "");
             return this;
         }
-
+        
         private KAKAOID noBlank() {
-            s = s.isEmpty() ? "a" : s;
+            recommendation = recommendation.isEmpty() ? "a":recommendation;
             return this;
         }
-
+        
         private KAKAOID noGreaterThan16() {
-            if (s.length() >= 16) {
-                s = s.substring(0, 15);
+            if (recommendation.length() >= 16){
+                recommendation = recommendation.substring(0,15);
             }
-            s = s.replaceAll("[.]$", "");
+            recommendation = recommendation.replaceAll("[.]$","");
             return this;
         }
-
+        
         private KAKAOID noLessThan2() {
-            StringBuilder sBuilder = new StringBuilder(s);
-            while (sBuilder.length() <= 2) {
-                sBuilder.append(sBuilder.charAt(sBuilder.length() - 1));
+            StringBuilder builder = new StringBuilder(recommendation);
+            while(builder.length() <= 2) {
+                builder.append(builder.charAt(builder.length() - 1));
             }
-            s = sBuilder.toString();
+            recommendation = builder.toString();
             return this;
         }
-
+        
         private String getResult() {
-            return s;
+            return recommendation;
         }
     }
 }
